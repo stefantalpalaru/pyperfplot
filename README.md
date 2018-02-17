@@ -3,6 +3,8 @@
 pyperfplot.py is a simple script that can normalise and plot multiple benchmark results
 produced by the [perf][1] and [performance][2] Python modules.
 
+Example output: https://i.imgur.com/L4Vy2ek.png
+
 ## Usage
 
 ```sh
