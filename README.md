@@ -11,6 +11,12 @@ Example output: https://i.imgur.com/L4Vy2ek.png
 ./pyperfplot.py py2.json py3.json -o benchmarks.png
 ```
 
+## Requirements
+
+- [perf][1]
+
+- matplotlib
+
 ## License
 
 MPL-2.0
