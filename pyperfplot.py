@@ -30,7 +30,7 @@ def plot_results(args):
             suite_data.append((bench.get_name(), bench.mean(), bench.stdev()))
         data.append(suite_data)
 
-    # remove benchmarks absent in one or more suits
+    # remove benchmarks absent in one or more suites
     all_names = set()
     to_remove = set()
     for suite_data in data:
