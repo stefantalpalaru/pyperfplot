@@ -18,12 +18,12 @@ try:
 except:
     pass
 
-def plot_results(filenames, args):
-    #  type: (List[str], argparse.Namespace) -> None
+def plot_results(args):
+    #  type: (argparse.Namespace) -> None
 
     data = []
 
-    for fn in filenames:
+    for fn in args.file:
         suite = perf.BenchmarkSuite.load(fn)
         suite_data = []
         for bench in suite:
@@ -74,7 +74,7 @@ def plot_results(filenames, args):
     rects = []
     for i, suite_data in enumerate(normalised_data):
         rects.append(ax.bar([j + i * width for j in ind], [b[1] for b in suite_data], width, yerr=[b[2] for b in suite_data]))
-    ax.legend([r[0] for r in rects], ['.'.join(fn.split('/')[-1].split('.')[:-1]) for fn in filenames])
+    ax.legend([r[0] for r in rects], ['.'.join(fn.split('/')[-1].split('.')[:-1]) for fn in args.file])
     plt.savefig(args.output, bbox_inches='tight')
     #plt.show()
 
@@ -87,5 +87,5 @@ if __name__ == '__main__':
     parser.add_argument('--title', default='pyperformance benchmark comparison')
     parser.add_argument('--ylabel', default='normalised run time (lower is better)')
     args = parser.parse_args()
-    plot_results(args.file, args)
+    plot_results(args)
 
