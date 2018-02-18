@@ -43,6 +43,7 @@ def plot_results(filenames, args):
                 to_remove.add(n)
     for i, suite_data in enumerate(data):
         data[i] = [b for b in suite_data if b[0] not in to_remove]
+
     # normalise the data with respect to the first suite
     normalised_data = [[(b[0], 1, b[2] / b[1]) for b in data[0]]]
     for suite_data in data[1:]:
@@ -65,15 +66,15 @@ def plot_results(filenames, args):
     ax.set_axisbelow(True)
     ax.yaxis.grid(True)
     ax.set_prop_cycle(color=[cm(1. * i / num_suites) for i in range(num_suites)])
-    ax.set_ylabel('normalised run time (lower is better)')
-    ax.set_title('pyperformance benchmark comparison')
+    ax.set_ylabel(args.ylabel)
+    ax.set_title(args.title)
     ax.set_xticks([i + width * (num_suites / 2. - 0.5) for i in ind])
     ax.set_xticklabels([b[0] for b in normalised_data[0]], rotation=90)
     ax.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.05))
     rects = []
     for i, suite_data in enumerate(normalised_data):
         rects.append(ax.bar([j + i * width for j in ind], [b[1] for b in suite_data], width, yerr=[b[2] for b in suite_data]))
-    ax.legend([r[0] for r in rects], ['.'.join(fn.split('.')[:-1]) for fn in filenames])
+    ax.legend([r[0] for r in rects], ['.'.join(fn.split('/')[-1].split('.')[:-1]) for fn in filenames])
     plt.savefig(args.output, bbox_inches='tight')
     #plt.show()
 
@@ -83,6 +84,8 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output', default='benchmarks.png', help='defaults to benchmarks.png')
     parser.add_argument('--width', default=1800, type=int)
     parser.add_argument('--height', default=1000, type=int)
+    parser.add_argument('--title', default='pyperformance benchmark comparison')
+    parser.add_argument('--ylabel', default='normalised run time (lower is better)')
     args = parser.parse_args()
     plot_results(args.file, args)
 
