@@ -1,10 +1,10 @@
 #!/usr/bin/env python2
 # coding: utf-8
 
-# Copyright © 2018 - Ștefan Talpalaru <stefantalpalaru@yahoo.com> */
+# Copyright © 2018 - Ștefan Talpalaru <stefantalpalaru@yahoo.com>
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
-# file, you can obtain one at http://mozilla.org/MPL/2.0/. */
+# file, you can obtain one at http://mozilla.org/MPL/2.0/.
 
 import argparse
 import matplotlib
@@ -73,7 +73,7 @@ def plot_results(args):
     ax.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(0.05))
     rects = []
     for i, suite_data in enumerate(normalised_data):
-        rects.append(ax.bar([j + i * width for j in ind], [b[1] for b in suite_data], width, yerr=[b[2] for b in suite_data]))
+        rects.append(ax.bar([j + i * width for j in ind], [b[1] for b in suite_data], width, yerr=[b[2] for b in suite_data], error_kw=dict(elinewidth=0.4)))
     ax.legend([r[0] for r in rects], ['.'.join(fn.split('/')[-1].split('.')[:-1]) for fn in args.file])
     plt.savefig(args.output, bbox_inches='tight')
     #plt.show()
